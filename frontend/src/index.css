@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-ink-950 text-stone-100 font-body antialiased;
+  }
+  h1, h2, h3 {
+    @apply font-display;
+  }
+}
