@@ -1,4 +1,4 @@
-﻿package com.mediatracker;
+package com.mediatracker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
