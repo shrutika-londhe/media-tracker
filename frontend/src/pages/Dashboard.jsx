@@ -42,6 +42,12 @@ export default function Dashboard() {
             <span className="font-display font-semibold text-stone-50">Media Tracker</span>
           </div>
           <div className="flex items-center gap-4 text-sm">
+            <Link to="/wishlist" className="text-stone-400 hover:text-stone-100 transition-colors">
+              Wishlist
+            </Link>
+            <Link to="/collections" className="text-stone-400 hover:text-stone-100 transition-colors">
+              Collections
+            </Link>
             <Link
               to="/items/new"
               className="rounded-lg bg-moss-500 hover:bg-moss-600 transition-colors px-3 py-1.5 text-xs font-semibold text-ink-950"

@@ -87,7 +87,7 @@ public class MediaItemService {
         item.setCurrentSeason(dto.getCurrentSeason());
     }
 
-    private MediaItemDto toDto(MediaItem item) {
+    public MediaItemDto toDto(MediaItem item) {
         MediaItemDto dto = new MediaItemDto();
         dto.setId(item.getId());
         dto.setTitle(item.getTitle());

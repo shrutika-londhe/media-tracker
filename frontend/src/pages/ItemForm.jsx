@@ -26,6 +26,7 @@ const EMPTY_FORM = {
   totalProgress: '',
   currentSeason: '',
   favorite: false,
+  wishlist: false,
   review: '',
   notes: '',
 }
@@ -269,15 +270,26 @@ export default function ItemForm() {
                 <input type="number" min="0" max="10" step="0.1" value={form.personalRating} onChange={handleTextChange('personalRating')} className={inputClass} />
               </Field>
             </div>
-            <label className="flex items-center gap-2 text-sm text-stone-300">
-              <input
-                type="checkbox"
-                checked={form.favorite}
-                onChange={(e) => setField('favorite', e.target.checked)}
-                className="rounded border-ink-700 bg-ink-800 text-moss-500 focus:ring-moss-500"
-              />
-              Mark as favorite
-            </label>
+            <div className="flex items-center gap-6">
+              <label className="flex items-center gap-2 text-sm text-stone-300">
+                <input
+                  type="checkbox"
+                  checked={form.favorite}
+                  onChange={(e) => setField('favorite', e.target.checked)}
+                  className="rounded border-ink-700 bg-ink-800 text-moss-500 focus:ring-moss-500"
+                />
+                Mark as favorite
+              </label>
+              <label className="flex items-center gap-2 text-sm text-stone-300">
+                <input
+                  type="checkbox"
+                  checked={form.wishlist}
+                  onChange={(e) => setField('wishlist', e.target.checked)}
+                  className="rounded border-ink-700 bg-ink-800 text-moss-500 focus:ring-moss-500"
+                />
+                Add to wishlist
+              </label>
+            </div>
           </Section>
 
           <Section title="Thoughts">

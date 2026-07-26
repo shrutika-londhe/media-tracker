@@ -85,6 +85,10 @@ public class MediaItem {
     @Builder.Default
     private Boolean favorite = false;
 
+    /** True when this item sits on the "want to read/watch/listen" wishlist. */
+    @Builder.Default
+    private Boolean wishlist = false;
+
     @Builder.Default
     private Integer repeatCount = 0;
 
