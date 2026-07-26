@@ -7,6 +7,7 @@ import ItemForm from './pages/ItemForm.jsx'
 import Wishlist from './pages/Wishlist.jsx'
 import Collections from './pages/Collections.jsx'
 import CollectionDetail from './pages/CollectionDetail.jsx'
+import Stats from './pages/Stats.jsx'
 import ProtectedRoute from './routes/ProtectedRoute.jsx'
 
 export default function App() {
@@ -59,6 +60,14 @@ export default function App() {
         element={
           <ProtectedRoute>
             <CollectionDetail />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/stats"
+        element={
+          <ProtectedRoute>
+            <Stats />
           </ProtectedRoute>
         }
       />

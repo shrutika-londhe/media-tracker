@@ -48,6 +48,9 @@ export default function Dashboard() {
             <Link to="/collections" className="text-stone-400 hover:text-stone-100 transition-colors">
               Collections
             </Link>
+            <Link to="/stats" className="text-stone-400 hover:text-stone-100 transition-colors">
+              Stats
+            </Link>
             <Link
               to="/items/new"
               className="rounded-lg bg-moss-500 hover:bg-moss-600 transition-colors px-3 py-1.5 text-xs font-semibold text-ink-950"
