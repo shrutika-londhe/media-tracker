@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 import api from '../services/api.js'
-import { STATUS_LABELS, CATEGORY_LABELS, CATEGORY_GROUPS } from '../constants.js'
+import { STATUS_LABELS, STATUS_OPTIONS, CATEGORY_LABELS, CATEGORY_GROUPS } from '../constants.js'
 
 export default function Dashboard() {
   const { user, logout } = useAuth()
@@ -13,6 +13,7 @@ export default function Dashboard() {
   const [searchInput, setSearchInput] = useState('')
   const [q, setQ] = useState('')
   const [category, setCategory] = useState('')
+  const [status, setStatus] = useState('')
   const [favoriteOnly, setFavoriteOnly] = useState(false)
 
   // Debounce the search box so we don't fire a request on every keystroke.
@@ -27,8 +28,9 @@ export default function Dashboard() {
       setLoading(true)
       try {
         const params = { size: 50, sort: 'updatedAt,desc' }
-        if (q) params.q = q
+      if (q) params.q = q
         if (category) params.category = category
+        if (status) params.status = status
         if (favoriteOnly) params.favorite = true
 
         const { data } = await api.get('/media-items', { params })
@@ -46,22 +48,21 @@ export default function Dashboard() {
     return () => {
       cancelled = true
     }
-  }, [q, category, favoriteOnly])
+  }, [q, category, status, favoriteOnly])
 
   const counts = items.reduce((acc, item) => {
     acc[item.status] = (acc[item.status] || 0) + 1
     return acc
   }, {})
 
-  const hasActiveFilters = q || category || favoriteOnly
-
-  function clearFilters() {
+  const hasActiveFilters = q || category || status || favoriteOnly
+function clearFilters() {
     setSearchInput('')
     setQ('')
     setCategory('')
+    setStatus('')
     setFavoriteOnly(false)
   }
-
   return (
     <div className="min-h-screen">
       <header className="border-b border-ink-800">
@@ -128,6 +129,18 @@ export default function Dashboard() {
                   </option>
                 ))}
               </optgroup>
+            ))}
+          </select>
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className="rounded-lg bg-ink-800 border border-ink-700 px-3 py-2 text-sm text-stone-100 outline-none focus:border-moss-500 focus:ring-1 focus:ring-moss-500"
+          >
+            <option value="">All statuses</option>
+            {STATUS_OPTIONS.map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
             ))}
           </select>
           <label className="flex items-center gap-2 text-sm text-stone-300">
