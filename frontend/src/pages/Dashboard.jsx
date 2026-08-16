@@ -14,6 +14,7 @@ export default function Dashboard() {
   const [q, setQ] = useState('')
   const [category, setCategory] = useState('')
   const [status, setStatus] = useState('')
+  const [genre, setGenre] = useState('')
   const [favoriteOnly, setFavoriteOnly] = useState(false)
 
   // Debounce the search box so we don't fire a request on every keystroke.
@@ -31,6 +32,7 @@ export default function Dashboard() {
       if (q) params.q = q
         if (category) params.category = category
         if (status) params.status = status
+        if (genre) params.genre = genre
         if (favoriteOnly) params.favorite = true
 
         const { data } = await api.get('/media-items', { params })
@@ -48,19 +50,20 @@ export default function Dashboard() {
     return () => {
       cancelled = true
     }
-  }, [q, category, status, favoriteOnly])
+  }, [q, category, status, genre, favoriteOnly])
 
   const counts = items.reduce((acc, item) => {
     acc[item.status] = (acc[item.status] || 0) + 1
     return acc
   }, {})
 
-  const hasActiveFilters = q || category || status || favoriteOnly
+  const hasActiveFilters = q || category || status || genre || favoriteOnly
 function clearFilters() {
     setSearchInput('')
     setQ('')
     setCategory('')
     setStatus('')
+    setGenre('')
     setFavoriteOnly(false)
   }
   return (
@@ -143,6 +146,12 @@ function clearFilters() {
               </option>
             ))}
           </select>
+          <input
+            value={genre}
+            onChange={(e) => setGenre(e.target.value)}
+            placeholder="Genre…"
+            className="w-32 rounded-lg bg-ink-800 border border-ink-700 px-3 py-2 text-sm text-stone-100 outline-none focus:border-moss-500 focus:ring-1 focus:ring-moss-500"
+          />
           <label className="flex items-center gap-2 text-sm text-stone-300">
             <input
               type="checkbox"
