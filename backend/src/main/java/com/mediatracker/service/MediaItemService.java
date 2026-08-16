@@ -1,5 +1,8 @@
 package com.mediatracker.service;
 
+import com.mediatracker.entity.Category;
+import com.mediatracker.repository.MediaItemSpecifications;
+import org.springframework.data.jpa.domain.Specification;
 import com.mediatracker.dto.MediaItemDto;
 import com.mediatracker.entity.MediaItem;
 import com.mediatracker.entity.Status;
@@ -18,14 +21,23 @@ import java.util.ArrayList;
 public class MediaItemService {
 
     private final MediaItemRepository mediaItemRepository;
-
-    public Page<MediaItemDto> listForUser(User user, Status status, Pageable pageable) {
-        Page<MediaItem> page = status == null
-                ? mediaItemRepository.findByOwnerId(user.getId(), pageable)
-                : mediaItemRepository.findByOwnerIdAndStatus(user.getId(), status, pageable);
-        return page.map(this::toDto);
+    public Page<MediaItemDto> listForUser(User user, Status status, Boolean wishlistOnly, Pageable pageable) {
+        return search(user, status, null, wishlistOnly, null, null, null, pageable);
     }
 
+    public Page<MediaItemDto> search(User user, Status status, Category category, Boolean wishlist,
+                                      Boolean favorite, String genre, String q, Pageable pageable) {
+        Specification<MediaItem> spec = Specification.where(MediaItemSpecifications.ownedBy(user.getId()))
+                .and(MediaItemSpecifications.hasStatus(status))
+                .and(MediaItemSpecifications.hasCategory(category))
+                .and(MediaItemSpecifications.isWishlist(wishlist))
+                .and(MediaItemSpecifications.isFavorite(favorite))
+                .and(MediaItemSpecifications.hasGenre(genre))
+                .and(MediaItemSpecifications.titleContains(q));
+
+        return mediaItemRepository.findAll(spec, pageable).map(this::toDto);
+    }
+    
     public MediaItemDto getOneForUser(Long id, User user) {
         MediaItem item = findOwned(id, user);
         return toDto(item);
@@ -80,6 +92,7 @@ public class MediaItemService {
         item.setReview(dto.getReview());
         item.setNotes(dto.getNotes());
         item.setFavorite(dto.getFavorite() != null ? dto.getFavorite() : false);
+        item.setWishlist(dto.getWishlist() != null ? dto.getWishlist() : false);
         item.setRepeatCount(dto.getRepeatCount() != null ? dto.getRepeatCount() : 0);
         item.setRecommendationScore(dto.getRecommendationScore());
         item.setCurrentProgress(dto.getCurrentProgress());
@@ -111,6 +124,7 @@ public class MediaItemService {
         dto.setReview(item.getReview());
         dto.setNotes(item.getNotes());
         dto.setFavorite(item.getFavorite());
+        dto.setWishlist(item.getWishlist());
         dto.setRepeatCount(item.getRepeatCount());
         dto.setRecommendationScore(item.getRecommendationScore());
         dto.setCurrentProgress(item.getCurrentProgress());

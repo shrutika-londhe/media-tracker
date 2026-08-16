@@ -42,6 +42,7 @@ public class MediaItemDto {
     private String review;
     private String notes;
     private Boolean favorite;
+    private Boolean wishlist;
     private Integer repeatCount;
     private Integer recommendationScore;
 

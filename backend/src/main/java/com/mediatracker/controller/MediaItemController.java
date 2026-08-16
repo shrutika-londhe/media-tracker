@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import com.mediatracker.entity.Category;
 
 @RestController
 @RequestMapping("/api/media-items")
@@ -21,14 +22,18 @@ public class MediaItemController {
     private final MediaItemService mediaItemService;
     private final UserRepository userRepository;
 
-    @GetMapping
-    public Page<MediaItemDto> list(@RequestParam(required = false) Status status,
-                                    Pageable pageable,
-                                    Authentication authentication) {
-        User user = currentUser(authentication);
-        return mediaItemService.listForUser(user, status, pageable);
-    }
-
+@GetMapping
+public Page<MediaItemDto> list(@RequestParam(required = false) Status status,
+                                @RequestParam(required = false) Category category,
+                                @RequestParam(required = false) Boolean wishlist,
+                                @RequestParam(required = false) Boolean favorite,
+                                @RequestParam(required = false) String genre,
+                                @RequestParam(required = false) String q,
+                                Pageable pageable,
+                                Authentication authentication) {
+    User user = currentUser(authentication);
+    return mediaItemService.search(user, status, category, wishlist, favorite, genre, q, pageable);
+}
     @GetMapping("/{id}")
     public MediaItemDto getOne(@PathVariable Long id, Authentication authentication) {
         return mediaItemService.getOneForUser(id, currentUser(authentication));
