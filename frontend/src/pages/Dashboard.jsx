@@ -84,6 +84,20 @@ function clearFilters() {
             <Link to="/stats" className="text-stone-400 hover:text-stone-100 transition-colors">
               Stats
             </Link>
+            <button
+              onClick={() => downloadExport('csv')}
+              className="text-stone-400 hover:text-stone-100 transition-colors"
+              title="Export as CSV"
+            >
+              Export CSV
+            </button>
+            <button
+              onClick={() => downloadExport('json')}
+              className="text-stone-400 hover:text-stone-100 transition-colors"
+              title="Export as JSON"
+            >
+              Export JSON
+            </button>
             <Link
               to="/items/new"
               className="rounded-lg bg-moss-500 hover:bg-moss-600 transition-colors px-3 py-1.5 text-xs font-semibold text-ink-950"
@@ -221,6 +235,18 @@ function clearFilters() {
       </main>
     </div>
   )
+}
+
+async function downloadExport(format) {
+  const response = await api.get(`/media-items/export/${format}`, { responseType: 'blob' })
+  const url = window.URL.createObjectURL(new Blob([response.data]))
+  const link = document.createElement('a')
+  link.href = url
+  link.download = `media-tracker-export.${format}`
+  document.body.appendChild(link)
+  link.click()
+  link.remove()
+  window.URL.revokeObjectURL(url)
 }
 
 function StatCard({ label, value, accent }) {

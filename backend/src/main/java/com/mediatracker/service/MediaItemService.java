@@ -1,6 +1,5 @@
 package com.mediatracker.service;
 
-import com.mediatracker.entity.Category;
 import com.mediatracker.repository.MediaItemSpecifications;
 import org.springframework.data.jpa.domain.Specification;
 import com.mediatracker.dto.MediaItemDto;
@@ -15,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import com.mediatracker.entity.Category;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +37,12 @@ public class MediaItemService {
                 .and(MediaItemSpecifications.titleContains(q));
 
         return mediaItemRepository.findAll(spec, pageable).map(this::toDto);
+    }
+
+    public List<MediaItemDto> exportAllForUser(User user) {
+        return mediaItemRepository.findAllByOwnerId(user.getId()).stream()
+                .map(this::toDto)
+                .collect(java.util.stream.Collectors.toList());
     }
     
     public MediaItemDto getOneForUser(Long id, User user) {
