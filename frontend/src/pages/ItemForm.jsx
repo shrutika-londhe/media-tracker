@@ -4,6 +4,7 @@ import api from '../services/api.js'
 import ChipInput from '../components/ChipInput.jsx'
 import { CATEGORY_GROUPS, STATUS_OPTIONS } from '../constants.js'
 
+
 const EMPTY_FORM = {
   title: '',
   alternativeTitle: '',
@@ -137,17 +138,17 @@ export default function ItemForm() {
   }
 
   if (loading) {
-    return <p className="max-w-2xl mx-auto px-6 py-10 text-sm text-stone-400">Loading item…</p>
+    return <p className="max-w-2xl mx-auto px-6 py-10 text-sm text-moss-400">Loading item…</p>
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-ink-950">
       <header className="border-b border-ink-800">
         <div className="max-w-2xl mx-auto px-6 py-4 flex items-center gap-3">
-          <Link to="/dashboard" className="text-stone-400 hover:text-stone-100 text-sm">
+          <Link to="/dashboard" className="text-moss-400 hover:text-moss-50 text-sm">
             ← Back
           </Link>
-          <h1 className="font-display text-lg text-stone-50">{isEdit ? 'Edit item' : 'Add item'}</h1>
+          <h1 className="font-display text-lg text-moss-50">{isEdit ? 'Edit item' : 'Add item'}</h1>
         </div>
       </header>
 
@@ -271,7 +272,7 @@ export default function ItemForm() {
               </Field>
             </div>
             <div className="flex items-center gap-6">
-              <label className="flex items-center gap-2 text-sm text-stone-300">
+              <label className="flex items-center gap-2 text-sm text-moss-100">
                 <input
                   type="checkbox"
                   checked={form.favorite}
@@ -280,7 +281,7 @@ export default function ItemForm() {
                 />
                 Mark as favorite
               </label>
-              <label className="flex items-center gap-2 text-sm text-stone-300">
+              <label className="flex items-center gap-2 text-sm text-moss-100">
                 <input
                   type="checkbox"
                   checked={form.wishlist}
@@ -315,7 +316,7 @@ export default function ItemForm() {
               )}
             </div>
             <div className="flex gap-3">
-              <Link to="/dashboard" className="px-4 py-2 text-sm text-stone-400 hover:text-stone-100">
+              <Link to="/dashboard" className="px-4 py-2 text-sm text-moss-400 hover:text-moss-50">
                 Cancel
               </Link>
               <button
@@ -334,12 +335,12 @@ export default function ItemForm() {
 }
 
 const inputClass =
-  'w-full rounded-lg bg-ink-800 border border-ink-700 px-3 py-2 text-sm text-stone-100 outline-none focus:border-moss-500 focus:ring-1 focus:ring-moss-500'
+  'w-full rounded-lg bg-ink-800 border border-ink-700 px-3 py-2 text-sm text-moss-50 outline-none focus:border-moss-500 focus:ring-1 focus:ring-moss-500'
 
 function Section({ title, children }) {
   return (
     <div className="rounded-2xl border border-ink-700 bg-ink-900 p-5 space-y-4">
-      <h2 className="text-xs font-semibold uppercase tracking-wide text-stone-500">{title}</h2>
+      <h2 className="text-xs font-semibold uppercase tracking-wide text-moss-400">{title}</h2>
       {children}
     </div>
   )
@@ -348,7 +349,7 @@ function Section({ title, children }) {
 function Field({ label, required, children }) {
   return (
     <div>
-      <label className="block text-xs font-medium text-stone-400 mb-1">
+      <label className="block text-xs font-medium text-moss-400 mb-1">
         {label} {required && <span className="text-ember-400">*</span>}
       </label>
       {children}

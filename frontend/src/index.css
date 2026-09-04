@@ -2,11 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply bg-ink-950 text-stone-100 font-body antialiased;
-  }
-  h1, h2, h3 {
-    @apply font-display;
-  }
+/* Light Mode — Extracted directly from your Dashboard screenshot */
+:root {
+  --color-bg-main: #FAF7F5;          /* Warm cream/off-white background */
+  --color-card-bg: #FFFFFF;         /* Pure white card backgrounds */
+  --color-text-dark: #2A3256;       /* Deep slate/navy for main text & numbers */
+  --color-text-muted: #6B7280;      /* Muted text for subheadings & counts */
+  --color-periwinkle: #6C72CB;      /* Signature periwinkle blue (Primary buttons/headers) */
+  --color-lavender: #E2E6F8;        /* Soft blue-gray for card borders & dividers */
+  
+  /* Status & Card Pastel Tokens */
+  --color-pink: #F8B4C0;            /* "In Progress" pastel red/pink */
+  --color-pink-text: #9E2A3B;
+  --color-green: #DDF0D5;           /* "Completed" pastel green */
+  --color-green-text: #2C6B38;
+  --color-peach: #FAD9CE;           /* "Planned" pastel orange/peach */
+  --color-peach-text: #9E4A2A;
+  --color-blue-badge: #E8EEFF;       /* "Re-reading" badge background */
+  --color-blue-badge-text: #3B4D8D;
+  
+  --color-danger: #E53E3E;
+}
+
+/* Dark Mode — Harmonized dark palette based on the same pastel accents */
+.dark {
+  --color-bg-main: #12131D;
+  --color-card-bg: #1B1E2E;
+  --color-text-dark: #ECEEF8;
+  --color-text-muted: #9BA3C0;
+  --color-periwinkle: #858CE6;
+  --color-lavender: #2B304A;
+
+  /* Dark mode variants for status blocks */
+  --color-pink: #4A202A;
+  --color-pink-text: #F8B4C0;
+  --color-green: #1F3826;
+  --color-green-text: #DDF0D5;
+  --color-peach: #482B20;
+  --color-peach-text: #FAD9CE;
+  --color-blue-badge: #232946;
+  --color-blue-badge-text: #A5B4FC;
+
+  --color-danger: #FC8181;
+}
+
+/* Base resets to maintain input styling */
+body {
+  background-color: var(--color-bg-main);
+  color: var(--color-text-dark);
+}
+
+input, select, textarea {
+  background-color: var(--color-bg-main) !important;
+  border-color: var(--color-lavender) !important;
+  color: var(--color-text-dark) !important;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--color-periwinkle) !important;
 }
