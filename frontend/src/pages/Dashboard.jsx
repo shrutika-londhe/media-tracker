@@ -274,28 +274,30 @@ export default function Dashboard() {
             <ul className="divide-y divide-ink-700">
               {items.map((item) => (
                 <li key={item.id}>
-                  <Link
+                                   <Link
                     to={`/items/${item.id}/edit`}
-                    className="px-6 py-4 flex items-center justify-between hover:bg-ink-800 transition-all group"
+                    className="px-5 py-3 flex items-center justify-between hover:bg-ink-800/50 transition-colors"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl flex items-center justify-center border border-ink-700 shadow-sm bg-ink-950">
-                        {item.favorite ? (
-                          <span className="text-ember-400 text-sm">★</span>
-                        ) : (
-                          <span className="text-xs text-moss-400">📄</span>
-                        )}
-                      </div>
-                      <div>
-                        <p className="font-bold text-sm transition-colors group-hover:underline text-moss-50">
+                    <div className="flex items-center gap-3 min-w-0">
+                      {item.coverImageUrl ? (
+                        <img
+                          src={item.coverImageUrl}
+                          alt=""
+                          className="w-9 h-12 object-cover rounded-md border border-ink-700 flex-shrink-0"
+                          onError={(e) => (e.target.style.visibility = 'hidden')}
+                        />
+                      ) : (
+                        <div className="w-9 h-12 rounded-md border border-ink-700 bg-ink-800 flex-shrink-0" />
+                      )}
+                      <div className="min-w-0">
+                        <p className="text-stone-100 font-medium truncate">
+                          {item.favorite && <span className="text-ember-400 mr-1">★</span>}
                           {item.title}
                         </p>
-                        <p className="text-xs font-medium text-moss-400">
-                          {CATEGORY_LABELS[item.category] || item.category}
-                        </p>
+                        <p className="text-xs text-stone-500">{CATEGORY_LABELS[item.category] || item.category}</p>
                       </div>
                     </div>
-                    <span className={`text-xs px-3 py-1 rounded-full border font-bold ${getStatusBadgeClasses(item.status)}`}>
+                    <span className="text-xs px-2 py-1 rounded-full bg-ink-800 text-stone-300 border border-ink-700 flex-shrink-0 ml-3">
                       {STATUS_LABELS[item.status] || item.status}
                     </span>
                   </Link>

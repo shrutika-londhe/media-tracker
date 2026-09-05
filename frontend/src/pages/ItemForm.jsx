@@ -8,6 +8,7 @@ import { CATEGORY_GROUPS, STATUS_OPTIONS } from '../constants.js'
 const EMPTY_FORM = {
   title: '',
   alternativeTitle: '',
+  coverImageUrl: '',
   category: '',
   status: 'PLANNED',
   author: '',
@@ -173,6 +174,26 @@ export default function ItemForm() {
             <Field label="Alternative title">
               <input value={form.alternativeTitle} onChange={handleTextChange('alternativeTitle')} className={inputClass} />
             </Field>
+
+                        <Field label="Cover image URL">
+              <div className="flex gap-3 items-start">
+                <input
+                  value={form.coverImageUrl}
+                  onChange={handleTextChange('coverImageUrl')}
+                  className={inputClass}
+                  placeholder="https://example.com/cover.jpg"
+                />
+                {form.coverImageUrl && (
+                  <img
+                    src={form.coverImageUrl}
+                    alt="Cover preview"
+                    className="w-14 h-20 object-cover rounded-md border border-ink-700 flex-shrink-0"
+                    onError={(e) => (e.target.style.visibility = 'hidden')}
+                  />
+                )}
+              </div>
+            </Field>
+
             <div className="grid grid-cols-2 gap-4">
               <Field label="Category" required>
                 <select

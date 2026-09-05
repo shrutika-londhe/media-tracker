@@ -1,0 +1,13 @@
+:root {
+  /* Main App Colors */
+  --primary: #3A86FF;
+  --secondary: #BDB2FF;
+  --accent: #FFD6E0;
+  --background: #FFF4F4;
+
+  /* Additional Colors */
+  --white: #FFFFFF;
+  --text: #1F1F1F;
+  --text-light: #6B6B6B;
+  --border: #E5E5E5;
+}
